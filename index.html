@@ -1,44 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-
-
-
-
+<html>
 <head>
-    <meta charset="utf-8">
-    <title>TEST backbone</title>
-    <link rel="stylesheet" href="css/todos.css"/>
+    <meta charset="utf-8">
+    <title></title>
 </head>
-
-<body>
-
-<div id="todoapp">
-
-    <header>
-      header
-    </header>
-
-    <section id="main">
-        <div>
-            123
-
-
-
-        </div>
-    </section>
-
-    <footer>
-        footer
-    </footer>
-
-</div>
-
-<script src="js/jquery.js"></script>
+<body>   
+ 
+<h1>Список задач</h1>
+<div class="tasks">
+    <script type="text/template" id="taskTemplate">
+        <span><%= title %></span> <button class="edit">Edit</button> <button class="delete">Delete</button>
+    </script>
+</div>   
+ 
 <script src="js/underscore.js"></script>
+<script src="js/jquery.js"></script>
 <script src="js/backbone.js"></script>
 <script src="js/test.js"></script>
-
-
-
+<!--<script src="js/testView.js"></script>-->
+<!--<script src="js/testModel.js"></script>-->
+<!--<script src="js/testController.js"></script>-->
+<!--<script src="js/testCollection.js"></script>-->
+ 
 </body>
 </html>
