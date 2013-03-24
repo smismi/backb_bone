@@ -11,18 +11,6 @@ $(function() {
 		return _.template( $('#' + id).html() );
 	};
 
-
-
-
-
-
-
-
-
-
-
-
-
 	App.Models.Task = Backbone.Model.extend({});
 
 	App.Views.Task = Backbone.View.extend({

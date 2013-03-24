@@ -1,19 +1,53 @@
 <!DOCTYPE html>
 <html>
-<head>	    
-	<meta charset="utf-8">
-	    <title></title>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type="text/css">
+        .login_box {
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            margin-left: -130px;
+            width: 200px;
+            border: 30px solid silver;
+            display: none;
+        }
+    </style>
 </head>
-<body>   
- 
-<h1>login box</h1>
- 
+<body><h1 id="button_show">login box</h1>
+<script id="login_box" type="text/template">
+    <div><%= _top %></div>
+    <div><%= _content %>
+
+    </div>
+    <div><%= _bottom %></div>
+</script>
+
+
+<script id="login_form_template" type="text/template">
+    <form id="login_form" action="#">
+        <input type="text"/>
+        <input type="password"/>
+        <input type="submit"/>
+    </form>
+</script>
+
+
+
+
+
+
 <script src="js/underscore.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/backbone.js"></script>
-<script src="js/login/login.js"></script>
+<script src="js/login/template.js"></script>
+<script src="js/login/app.js"></script>
 <script src="js/login/loginModel.js"></script>
 <script src="js/login/loginView.js"></script>
- 
+<script src="js/login/login.js"></script>
+
+
+
 </body>
 </html>
