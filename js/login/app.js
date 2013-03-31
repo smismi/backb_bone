@@ -4,9 +4,7 @@ App = {
    Collections: {}
 }
 
-template = function(id) {
-    return _.template( $('#' + id).html() );
-};
+
 
 //models
 
