@@ -27,7 +27,7 @@ PL.Views.Track = Backbone.View.extend({
     },
     render: function(){
 //        console.log()
-        var spanEdit = $("<span></span>").addClass("edit").text('edit')
+        var spanEdit = $("<span/>").addClass("edit").text('edit')
         this.$el.append(this.model.get("trackTitle")).append(spanEdit);
         return this;
     },
@@ -64,14 +64,32 @@ PL.Views.Tracks = Backbone.View.extend({
 PL.Views.Search = Backbone.View.extend({
     el: "#search_form",
     initialize : function(){
-        this.$el.css("background", "#f00")
+        this.$el.css("background", "#f00");
+        var input = $("#search_text");
     },
     events: {
-        "keydown #search_text" : "search"
+        "keyup #search_text" : "search"
     },
     search: function(e) {
-        console.log ("1")
+        console.log('1');
+
+        this.findSubstring($("#search_text").val());
+
+
+    },
+    findSubstring: function(s) {
+        var _s = s;
+        this.collection.each(
+            function(model, _s) {
+                str = model.get("trackTitle");
+                if(!str.indexOf(_s)) this.hide(model);
+            }, this
+        )
+    },
+    hide: function(){
+        console.log("match")
     }
+
 })
 
 
@@ -136,6 +154,8 @@ var winamp = new  PL.Views.Tracks({
     collection: playlist
 })
 
-var search = new PL.Views.Search({})
+var search = new PL.Views.Search({
+    collection: playlist
+})
 
 
