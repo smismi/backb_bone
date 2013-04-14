@@ -2,28 +2,45 @@
 //VIEWS
 
 TL.Views.Item = Backbone.View.extend({
+    tagName: "figure",
+    template: _.template("<%= _id %>"),
     initialize: function() {
 //        console.log("TL.Views.Item: initialize");
         this.render().colorize().bind();
     },
     render: function() {
 //        console.log("TL.Views.Item: render");
+//        var   ccclass = ;
+        this.$el.addClass("tile_item " + (this.model.get("className") || "")).html( this.template( this.model.toJSON() ) )
 
-
+        this.$el.append(this.buttons.close);
+        console.log(c_items.length);
         return this;
     },
     colorize: function() {
 //        console.log("TL.Views.Item: colorize");
 
-
+        this.$el.css({"color": this.model.get("color") || "#f60"})
         return this;
     },
-    bind: function() {
-//        console.log("TL.Views.Item: bind");
+    close: function() {
+//        alert("close" + this.model.get("_id"))
 
 
-        return this;
+        this.$el.remove();
+        c_items.remove(this.model);
+        console.log(c_items.length);
+
+
+    },
+    buttons : {
+        close: "<div class='close'>",
+        active: "<div class='active'>"
+    },
+    events : {
+        "click .close": "close"
     }
+
 });
 
 
@@ -40,6 +57,7 @@ TL.Views.Items = Backbone.View.extend({
             this.renderEach(item);
 
         }, this);
+        $("#viewport").append(this.$el)
 
         return this;
     },
@@ -47,17 +65,36 @@ TL.Views.Items = Backbone.View.extend({
 //        console.log("TL.Views.Items: render each");
 //        console.log(item.get("_id"));
 //        item.get("_idw")
-        var _item = new TL.Views.Item({model: item})
+        var _item = new TL.Views.Item({model: item});
+
+        this.$el.append(_item.$el);
+
+
     },
     fullStop: function() {
         TL._stop = new Date();
         return this;
     },
     alertTime: function() {
-        document.write(TL._stop - TL._start);
+//        document.write(TL._stop - TL._start);
         return this;
     }
 })
+
+TL.Views.Add = Backbone.View.extend({
+    el: '#add_item',
+    initialize: function(){
+        console.log(this.$el)
+    },
+    events : {
+        "click .add_button" : "add"
+    },
+    add: function (){
+        console.log("add")
+    }
+
+});
+
 
 
 
