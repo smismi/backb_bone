@@ -71,23 +71,39 @@ PL.Views.Search = Backbone.View.extend({
         "keyup #search_text" : "search"
     },
     search: function(e) {
-        console.log('1');
+//        this.findSubstring($("#search_text").val());
+        this.find();
+    },
 
-        this.findSubstring($("#search_text").val());
+    find: function () {
+        var found = this.collection.find(function(item){
+//            debugger;
+            return (item.get('trackTitle')) === $("#search_text").val();
+//            return ( item.get('trackTitle').indexOf($("#search_text").val()));
+        });
+        this.filter(found);
 
 
     },
+
     findSubstring: function(s) {
         var _s = s;
+//
+//        var _f = _.filter(model, function(num){ return num % 2 == 0; });
+//        => [2, 4, 6]
+
+
+
         this.collection.each(
-            function(model, _s) {
+            function(model, index, _s) {
+                console.log(_s);
                 str = model.get("trackTitle");
                 if(!str.indexOf(_s)) this.hide(model);
             }, this
         )
     },
-    hide: function(){
-        console.log("match")
+    filter: function(model){
+       console.log(model.get("trackTitle"));
     }
 
 })
@@ -98,48 +114,48 @@ PL.Collections.Playlist = Backbone.Collection.extend({model: PL.Models.Track});
 
 var playlist = new PL.Collections.Playlist([
     {
-        trackTitle: "1",
+        trackTitle: "anna",
         trackId: 0
 
     },
     {
-        trackTitle: "2",
+        trackTitle: "foxie",
         trackId: 1
 
     },
     {
-        trackTitle: "3",
+        trackTitle: "kathie",
         trackId: 2
 
     },
     {
-        trackTitle: "4",
+        trackTitle: "gresden",
         trackId: 3
 
     },
     {
-        trackTitle: "5",
+        trackTitle: "new your city",
         trackId: 4
 
     },
     {
-        trackTitle: "5",
-        trackId: 4
+        trackTitle: "mexico",
+        trackId: 5
 
     },
     {
-        trackTitle: "5",
-        trackId: 4
+        trackTitle: "putinhui",
+        trackId: 6
 
     },
     {
-        trackTitle: "5",
-        trackId: 4
+        trackTitle: "ferdinand",
+        trackId: 7
 
     },
     {
-        trackTitle: "5",
-        trackId: 4
+        trackTitle: "green",
+        trackId: 8
 
     }
 ]);
