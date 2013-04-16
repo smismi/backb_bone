@@ -11,6 +11,7 @@ TL.Views.Item = Backbone.View.extend({
     render: function() {
 //        console.log("TL.Views.Item: render");
 //        var   ccclass = ;
+
         this.$el.addClass("tile_item " + (this.model.get("className") || "")).html( this.template( this.model.toJSON() ) )
 
         this.$el.append(this.buttons.close);
@@ -50,6 +51,17 @@ TL.Views.Items = Backbone.View.extend({
 
 //        console.log("TL.Views.Items: initialize");
         this.render().fullStop().alertTime();
+        this.collection.on("add", this.addOne, this);
+    },
+    addOne: function(item) {
+        debugger;
+        // создавать новый дочерний вид
+        var _item = new TL.Views.Item({model: item});
+//        var taskView = new App.Views.Task({ model: task });
+        // добавлять его в корневой элемент
+
+        this.$el.append(_item.render().el);
+//        this.$el.append(taskView.render().el);
     },
     render: function() {
         this.collection.each(function(item){
@@ -66,6 +78,7 @@ TL.Views.Items = Backbone.View.extend({
 //        console.log(item.get("_id"));
 //        item.get("_idw")
         var _item = new TL.Views.Item({model: item});
+
 
         this.$el.append(_item.$el);
 
@@ -90,7 +103,11 @@ TL.Views.Add = Backbone.View.extend({
         "click .add_button" : "add"
     },
     add: function (){
-        console.log("add")
+        var id_value = this.$el.find("input[name]").attr("value");
+
+        var newTile = new TL.Models.Item({_id:90, color: id_value })
+//        var newTask = new App.Models.Task({ title: newTaskTitle });
+        c_items.add(newTile);
     }
 
 });
