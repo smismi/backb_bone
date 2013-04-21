@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
 
 
@@ -8,6 +7,9 @@ $(document).ready(function(){
 
     var addItem = new TL.Views.Add();
 
+
+
+    $(".tile_item").draggable2();
 
 })
 
