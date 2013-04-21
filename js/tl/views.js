@@ -54,7 +54,7 @@ TL.Views.Items = Backbone.View.extend({
         this.collection.on("add", this.addOne, this);
     },
     addOne: function(item) {
-        debugger;
+
         // создавать новый дочерний вид
         var _item = new TL.Views.Item({model: item});
 //        var taskView = new App.Views.Task({ model: task });

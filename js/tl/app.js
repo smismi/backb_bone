@@ -9,3 +9,19 @@ var TL = {
 
 TL._start = new Date();
 //console.log("1");
+
+
+$(document).ready(function(){
+
+
+	$(".xml_button").on("click", function(){
+
+//	   alert("sasva")
+		$.get('data.xml', function(xml){
+			var json = $.xml2json(xml);
+			alert(json.message);
+		});
+	})
+
+
+})

@@ -1,0 +1,66 @@
+<article priority="3" hits="47143" is-active="1" type="video" id="933455097">
+	<lead>
+		Полиция Бостона задержала Джохара Царнаева, подозреваемого в причастности ко взрывам, которые прогремели 15 апреля недалеко от финишной черты марафона.
+	</lead>
+	<date hour="08" min="00" month="04" sec="00" wd="6" day="20" tz="+0400" year="2013" />
+	<lj-hash>34374ea132de2df1a414b989c28f8d9b</lj-hash>
+	<meta>
+		<data>
+			<flags>
+				<no_accreditation_form>
+					<undef />
+				</no_accreditation_form>
+				<no_question_form>
+					<undef />
+				</no_question_form>
+				<apec>
+					<accreditation>
+						<undef />
+					</accreditation>
+					<accreditation_close>
+						<undef />
+					</accreditation_close>
+				</apec>
+			</flags>
+			<source_title>
+				<undef />
+			</source_title>
+			<source_authors>
+				<undef />
+			</source_authors>
+			<source_url>
+				<undef />
+			</source_url>
+			<source_date>
+				<undef />
+			</source_date>
+		</data>
+	</meta>
+	<keywords>Бостон, Уотертаун, спецоперация, полиция, перестрелка, оружие, погибший, подозреваемый</keywords>
+	<url>/tv_incidents/20130420/933455097.html</url>
+	<list sid="tv_incidents" view="articleMainList">
+		<url>/tv_incidents/</url>
+		<title>Происшествия</title>
+		<xml-fields />
+	</list>
+	<modified-date hour="20" min="51" month="04" sec="26" wd="6" day="20" tz="+0400" year="2013" />
+	<expiration-date />
+	<announce>
+		Полиция Бостона задержала Джохара Царнаева, подозреваемого в причастности ко взрывам, которые прогремели 15 апреля недалеко от финишной черты марафона.
+	</announce>
+	<title>Жители Уотертауна аплодировали полицейским, задержавшим Царнаева</title>
+	<xml-fields>
+		<flags>
+			<ipad_evening_publication_status />
+			<article_for_bloggers />
+			<article_is_inactive />
+			<ipad_day_test_publication_status />
+			<ipad_day_publication_status />
+			<ipad_morning_publication_status />
+			<ipad_evening_test_publication_status />
+			<article_is_online_translation />
+			<ipad_morning_test_publication_status />
+		</flags>
+	</xml-fields>
+	<external-url />
+</article>
