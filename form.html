@@ -8,17 +8,15 @@
      
 
     <script src="js/jquery.js"></script>
-    <script src="js/form.validate.js"></script>
+    <!--<script src="js/form.validate.js"></script>-->
+
+    <script type="text/javascript">
+        document.write("<script src=\"js\/form.validate.js?" + (new Date()).getTime() + "\"><\/script>");
+    //        document.write("<link rel=\"stylesheet\" href=\"css\/form.css?" + Math.random()*10000000 + "\" type=\"text/css\">");
+        document.write("<link rel=\"stylesheet\" href=\"css\/form.css?" + (new Date()).getTime() + "\" type=\"text/css\">");
+    </script>
 
 
-    <style type="text/css">
-        .error_text {
-            display: none;
-        }
-        .error {
-            border: 1px solid red
-        }
-    </style>
 </head>
 <body>   
  
@@ -41,8 +39,10 @@
     $('#form').xvalidate({
         fields: {
             name : "empty",
+            remember : "checked",
             index: "empty, num",
-            email: "email"
+            email: "email",
+            phone: "phone"
         }
     });
 </script>

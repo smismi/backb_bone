@@ -16,6 +16,10 @@
             pattern: {
                 ru: "",
                 en: "",
+                checked: {
+                    cssClass: "checked",
+                    errorText: "а с правтдами согласиться?"
+                },
                 num: {
                     cssClass: "num",
                     errorText: "тольк о цыфры пожалуйсто"
@@ -36,9 +40,6 @@
 
         // переопределяеи экстендя опции из вызова
         options = $.extend(defaults, options)
-
-
-        console.log(options);
 
         var _form = $(this);
         var error = "error";
@@ -61,13 +62,18 @@
                 //слазили в объект вытащищлии актуальный класс и текст сообщения
                 var real_val = options.pattern[val];
 
-                //повестли класс
-                _field.addClass(real_val.cssClass);
+                if(real_val) {
 
+                    //повестли класс
+                    _field.addClass(real_val.cssClass);
 
-                //создали подсказку
-                var tooltip = $("<i class='error_text'/>").addClass(real_val.cssClass).html(real_val.errorText)
-                tooltip.insertAfter(_field);
+                    //создали подсказку
+                    var tooltip = $("<i class='error_text'/>").addClass(real_val.cssClass).html(real_val.errorText)
+                    tooltip.insertAfter(_field);
+
+                } else {
+                    console.log("поле " + val + " Чуви проверь типы а то правило написано а как валидировать нет!!")
+                }
 
             /*TODO: можно сразу писать все поля-подсказки в объект для потом быстрого доступа*/
 
@@ -100,14 +106,19 @@
 
                     // посмотрели что возвращает check
                     // check принимает [тип валидации, текущее значение поля]
-                    if (!check(val, _field.val())) {
+                    if (!check(val, _field)) {
 
+
+                        if(real_val) {
                         // если вернуло false
-                        var _error_text0 = _field.parent().find("i.error_text." + real_val.cssClass + "");
-                        _error_text0.show();
+                            var _error_text0 = _field.parent().find("i.error_text." + real_val.cssClass + "");
+                            _error_text0.show();
 
 
                         _field.addClass(error);
+                        } else {
+                            alert("поле " + val + " Чуви проверь типы а то правило написано а как валидировать нет!!")
+                        }
 
                         console.log("оп ошибочка")
 
@@ -131,13 +142,13 @@
 
         // функция проверки - можно дописывать свои
 
-        check = function (validator, value) {
+        check = function (validator, field) {
             switch (validator) {
                 case "empty" :
 
 //                     var _emptyReg = /^\s*$/;
                     var _emptyReg = new RegExp("[0-9a-zа-я_]", 'i');
-                    ;
+                    var value = field.val();
                     if (!_emptyReg.test(value)) {
                         return false;
                     } else {
@@ -146,6 +157,7 @@
                     break;
                 case "email" :
                     var _emailReg = new RegExp("[0-9a-z_]+@[0-9a-z_^.]+\\.[a-z]{2,3}", 'i');
+                    var value = field.val();
                     if (!_emailReg.test(value)) {
                         return false;
                     } else {
@@ -154,7 +166,15 @@
                     break;
                 case "num" :
                     var _emailReg = new RegExp("[0-9]", 'i');
+                    var value = field.val();
                     if (!_emailReg.test(value)) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                    break;
+                case "checked" :
+                    if (!field.is(":checked")) {
                         return false;
                     } else {
                         return true;
