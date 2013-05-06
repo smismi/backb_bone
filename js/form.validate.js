@@ -92,6 +92,7 @@
 
 //время сабмита
         $(this).on("submit", function () {
+            validState = false;
 
             //по всем интересующим нас полям
             jQuery.each(options.fields, function (key, val) {
@@ -141,6 +142,7 @@
 
                         console.log("оп ошибочка")
 
+                        validState = true;
                     };
 
 
@@ -151,11 +153,9 @@
 
             //пока не знаю зачем
             if (validState) {
-                return;
+                return false;
             }
 
-            // превент отправки формы
-            return false;
         })
 
 
