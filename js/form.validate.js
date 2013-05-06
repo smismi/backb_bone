@@ -28,6 +28,10 @@
                     cssClass: "email",
                     errorText: "а тут нужен email"
                 },
+                date: {
+                    cssClass: "date",
+                    errorText: "date please"
+                },
                 empty: {
                     cssClass: "empty",
                     errorText: "должно быть заполнено"
@@ -44,13 +48,24 @@
         var _form = $(this);
         var error = "error";
 
+        var _index = {}
 
         // пробугаемся при ините - поля облагораживаем подсказками и прочей чепухой
         //ищем все поля которые учасствуют в валидации
 
         jQuery.each(options.fields, function (key, val) {
 
-            _field = _form.find("input[name='" + key + "']")
+
+            _index[key] = {};
+
+
+            var f_ = _index[key].field = {};
+            var t_ = _index[key].tooltip = {};
+
+
+            f_.el = _form.find("input[name='" + key + "']");
+            t_.el = $("<b class='error_text'/>").insertAfter(f_.el);
+            t_.list = {};
 
             //если у поля несколько проверок
             valArray = val.split(",");
@@ -59,25 +74,17 @@
             jQuery.each(valArray, function (i, val) {
                 var val = val.trim();
 
-                //слазили в объект вытащищлии актуальный класс и текст сообщения
-                var real_val = options.pattern[val];
 
+                f_.cssClass = options.pattern[val].cssClass;
+                t_.cssClass = options.pattern[val].cssClass;
 
-                // тут п3сть будет поверка не напортачили ли мы с указанием как валидировать поля
-                if(real_val) {
+                t_.list[val] = {};
+                t_.list[val].text = options.pattern[val].errorText;
+                t_.list[val].el = $("<i/>").addClass(t_.cssClass).html(t_.list[val].text);
 
-                    //повестли класс
-                    _field.addClass(real_val.cssClass);
+                f_.el.addClass(f_.cssClass);
+                t_.el.addClass(t_.cssClass).append(t_.list[val].el);
 
-                    //создали подсказку
-                    var tooltip = $("<i class='error_text'/>").addClass(real_val.cssClass).html(real_val.errorText)
-                    tooltip.insertAfter(_field);
-
-                } else {
-                    console.log("поле " + val + " Чуви проверь типы а то правило написано а как валидировать нет!!")
-                }
-
-            /*TODO: можно сразу писать все поля-подсказки в объект для потом быстрого доступа*/
 
             })
         })
@@ -89,13 +96,17 @@
             //по всем интересующим нас полям
             jQuery.each(options.fields, function (key, val) {
 
-                //собрали в переменные DOM-объекты
-                var _field = _form.find("input[name='" + key + "']");
-                var _error_text = _field.parent().find("i.error_text");
+//                //собрали в переменные DOM-объекты
+//                var _field = _form.find("input[name='" + key + "']");
+//                var _error_text = _field.parent().find("i.error_text");
 
                 // сняли классы оштбок и убрали подсказки
-                _field.removeClass(error);
-                _error_text.hide();
+                _index[key].field.el.removeClass(error);
+                _index[key].tooltip.el.hide()
+
+
+//                _field.removeClass(error);
+//                _error_text.hide();
 
 
                 // разобрали строку с типами валидации по запятым
@@ -104,25 +115,29 @@
                 //и для каждого
                 jQuery.each(valArray, function (i, val) {
                     var val = val.trim();
-                    var real_val = options.pattern[val]
+//                    var real_val = options.pattern[val]
 
                     // посмотрели что возвращает check
                     // check принимает [тип валидации, текущее значение поля]
-                    if (!check(val, _field)) {
 
+                    _index[key].tooltip.list[val].el.hide();
+
+
+                    if (!check(val, _index[key].field.el)) {
 
                         // тут пусть будет вторая поверка не напортачили ли мы с указанием как валидировать поля
 
-                        if(real_val) {
+
                         // если вернуло false
-                            var _error_text0 = _field.parent().find("i.error_text." + real_val.cssClass + "");
-                            _error_text0.show();
 
 
-                        _field.addClass(error);
-                        } else {
-                            alert("поле " + val + " Чуви проверь типы а то правило написано а как валидировать нет!!")
-                        }
+
+                            _index[key].tooltip.list[val].el.show();
+                            _index[key].tooltip.el.show();
+
+
+                            _index[key].field.el.addClass(error);
+
 
                         console.log("оп ошибочка")
 
@@ -172,6 +187,15 @@
                     var _emailReg = new RegExp("[0-9]", 'i');
                     var value = field.val();
                     if (!_emailReg.test(value)) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                    break;
+                case "date" :
+                    var _dateReg = new RegExp("(((0[1-9]|[12][0-9]|3[01])([-./])(0[13578]|10|12)([-./])(\\d{4}))|(([0][1-9]|[12][0-9]|30)([-./])(0[469]|11)([-./])(\\d{4}))|((0[1-9]|1[0-9]|2[0-8])([-./])(02)([-./])(\\d{4}))|((29)(\\.|-|\/)(02)([-./])([02468][048]00))|((29)([-./])(02)([-./])([13579][26]00))|((29)([-./])(02)([-./])([0-9][0-9][0][48]))|((29)([-./])(02)([-./])([0-9][0-9][2468][048]))|((29)([-./])(02)([-./])([0-9][0-9][13579][26])))", 'i');
+                    var value = field.val();
+                    if (!_dateReg.test(value)) {
                         return false;
                     } else {
                         return true;
