@@ -157,16 +157,14 @@
             }   else {
 
                 $.ajax({
-                    url: "data.html",
-                    type: "post",
+                    url: "data.json",
+					dataType: "json",
                     data: $(this).serialize(),
-                    success: function (response, textStatus, jqXHR){
-                        debugger;
+                    done: function (response, textStatus, jqXHR){
                         console.log("Hooray, it worked!");
                     },
                     error:function (response, textStatus, jqXHR){
-                        debugger;
-                        console.log("fuck");
+                        console.log(response.responseText);
                     }
                 });
                 return false;
