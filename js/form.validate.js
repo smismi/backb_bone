@@ -154,7 +154,27 @@
             //пока не знаю зачем
             if (validState) {
                 return false;
+            }   else {
+
+                $.ajax({
+                    url: "data.html",
+                    type: "post",
+                    data: $(this).serialize(),
+                    success: function (response, textStatus, jqXHR){
+                        debugger;
+                        console.log("Hooray, it worked!");
+                    },
+                    error:function (response, textStatus, jqXHR){
+                        debugger;
+                        console.log("fuck");
+                    }
+                });
+                return false;
+
             }
+
+
+
 
         })
 
