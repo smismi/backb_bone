@@ -1,6 +1,6 @@
 {
-	errors: {
-		name: "1",
-		id: 333
-	}
+	"error": {
+		"name": "empty"
+	},
+	"status": "error"
 }
